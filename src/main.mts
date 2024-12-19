@@ -72,8 +72,7 @@ async function fetchData(subgraphUrl: string): Promise<CDNEntry[]> {
       return {
         "Contract address": registry.id,
         "Domain name": "curate.kleros.io",
-        "Visual proof":
-          "/ipfs/QmSJJA2ioKwpWJpCGtctvhCL1FfJws1TRAG11ZJZrmzTEt/kleros-cdn.jpg",
+        "Visual proof": "", //blank as default for now
       };
     })
     .filter((registry) => registry !== null); // Filter out null entries
@@ -97,7 +96,18 @@ class CDNService implements ICDNService {
   ): Promise<CDNEntry[]> => {
     const url = prepareUrl(chainId, apiKey!);
     const registries = await fetchData(url);
-    return registries;
+    return registries.map((registry) => {
+      return {
+        ...registry,
+        //adding the visual proof URLs accordingly
+        "Visual proof":
+          chainId === "1" // Check if chainId is 1
+            ? "/ipfs/QmRvPSggsfgJQVULGADzy5mDQS59PX5EXY7168CbVaNanG/kleros-cdn-mainnet.jpg"
+            : chainId === "100" // Check if chainId is 100
+              ? "/ipfs/QmSJJA2ioKwpWJpCGtctvhCL1FfJws1TRAG11ZJZrmzTEt/kleros-cdn.jpg" // URL for chainId 100
+              : "/ipfs/default-url.jpg", // Default URL for other chainIds
+      };
+    });
   };
 }
 
