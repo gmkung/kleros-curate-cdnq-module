@@ -1,0 +1,19 @@
+{
+  "name": "Kleros-Curate-CDNQ-module",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A module for retrieving the CDN labels of Kleros Curate registries.",
+  "main": "main.mjs",
+  "repository": "https://github.com/gmkung/kleros-curate-cdnq-module.git",
+  "author": "gmkung <guangmian@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "axios": "^1.6.8",
+    "cdnq-types": "^1.1.10",
+    "node-fetch": "^3.3.2"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}
